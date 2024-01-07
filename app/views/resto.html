@@ -1,0 +1,20 @@
+#{extends 'main.html' /}
+
+  <main id="main" class="container-lg">
+    #{if flash.success}
+      <div class="alert alert-success" role="alert">
+        ${flash.success}
+      </div>
+    #{/if}
+        
+    #{if flash.error}
+      <div class="alert alert-danger" role="alert">
+        ${flash.error}
+      </div>
+    #{/if}
+    
+      <div class="container">
+      #{doLayout /}
+      </div>
+
+  </main><!-- End #main -->

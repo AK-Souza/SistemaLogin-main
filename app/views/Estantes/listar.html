@@ -1,0 +1,68 @@
+#{extends 'resto.html' /}
+#{set title:'Listagem de Estante' /}
+
+<div class="px-5 pt-4">
+	<h3>#{get 'title'/}</h3>
+	<form class="d-flex" role="search">
+		<input class="form-control me-2" type="search" placeholder="Pesquise Estante" aria-label="Search" name ="busca" value="${busca}">
+		<button class="btn btn-outline-dark" type="submit">Pesquisar</button>
+	  </form>
+</div>
+
+</br>
+
+<div class="px-5 pt-4">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+			<th>#</th>
+			<th>Setor</th>
+			<th>Carreira</th>
+			<th>Categoria</th>
+			<th>Qtd. Livros</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			#{list items:lista, as:'est'}
+				<tr>
+					<th>${est.id}</th>
+					<td>${est.setor}</td>
+					<td>${est.carreira}</td>
+					<td>${est.categoria}</td>
+					<td>${est.qtdLivros()}</td>
+					<td>
+						<button type="button" class="btn btn-dark"><a class="text-white" href='@{Estantes.editar(est.id)}' >Editar</a></button> |
+						<button type="button" class="btn btn-dark"><a class="text-white" href='@{Estantes.deletar(est.id)}' >Deletar</a></button>			
+					</td>
+				</tr>
+			#{/list}
+		</tbody>
+	</table>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$("form").submit(function(e) {
+	 e.preventDefault();
+	 $.ajax({
+		 type: "GET", //INFORME O TIPO DA REQUISICAO
+		 url: "@{Estantes.listaAjax}", //INFORME A URL DE DESTINO
+		 data: $(this).serialize(), //ENVIA DADOS DO FORMULARIO
+		 success: function(data) {
+			 $("tbody").empty();
+			 $.each(data, function(i, item) {
+				 $("tbody").append(
+				"<tr>"+
+				"<th>"+item.id+"</th>"+
+			      "<td>"+item.setor+"</td>"+
+			      "<td>"+item.carreira+"</td>"+
+			      "<td>"+item.categoria+"</td>"+
+					"<td> "+ "</td>"+
+	    "</tr>");
+			 });
+		 }
+	 });
+	});
+});
+</script>

@@ -1,0 +1,44 @@
+         #{extends 'resto.html' /}
+#{set title:'Cadastro de usuário' /}
+<div class="pb-4">
+	<h3>#{get 'title'/}</h3>
+</div>
+<form action="@{Usuarios.salvar}">
+
+	<input type="hidden" name="usuario.id" value="${usuario?.id}" />
+
+	<div class="mb-3 has-validation">
+		<label class="form-label" for="nome">Nome</label>
+		<input type="text" name="usuario.nome" value="${usuario?.nome}" id="nome" class="form-control "/>
+		<div class="invalid-feedback vermelho">
+			#{error 'usuario.nome' /}
+		</div>
+		<span class='vermelho'>#{error 'usuario.nome' /}</span>
+	</div>
+
+	<div class="mb-3 has-validation">
+		<label class="form-label" for="email">Email</label>
+		<input type="text" name="usuario.email" value="${usuario?.email}" id="email" class="form-control "/>
+		<div class="invalid-feedback vermelho">
+			#{error 'usuario.email' /}
+		</div>
+		<span class='vermelho'>#{error 'usuario.email' /}</span>
+	</div>
+
+	<div class="mb-3 has-validation">
+		<label class="form-label" for="senha">Senha</label>
+		<input type="password" name="senha" value="${usuario?.senha}" id="senha" class="form-control "/>
+		<div class="invalid-feedback vermelho">
+			#{error 'usuario.senha' /}
+		</div>
+		<span class='vermelho'>#{error 'usuario.senha' /}</span>
+	</div>
+	<div class="mb-3 has-validation">
+		<label class="form-label" for="confirmsenha">Confirme sua senha</label>
+		<input type="password" name="usuario.confirmacaosenha" value="" id="confirmsenha" class="form-control "/>
+	</div>
+
+	<div class="mb-3">
+        <button class="btn btn-dark mt-4">Cadastrar</button>
+    </div>
+</form>

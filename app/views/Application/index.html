@@ -1,0 +1,28 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex align-items-center justify-content-center">
+  <div class="container" data-aos="fade-up">
+
+    <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
+      <div class="col-xl-6 col-lg-8">
+        <h1>É PRECISO QUE A LEITURA SEJA UM ATO DE AMOR<span>.</span></h1>
+        <h2>- Paulo Freire.</h2>
+      </div>
+    </div>
+
+    <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
+  #{list items:estantes, as:'estante'} 
+      <div class="col-xl-2 col-md-4">
+        <div class="icon-box">
+          <i class="bi bi-book"></i>
+          <h3><a href="@{Livros.listarPorEstante(estante.id)}">${estante.categoria}</a></h3>
+          <i><h5>${estante.qtdLivros()} </h5></i>
+        </div>
+      </div>
+  #{/list}
+    </div>
+
+  </div>
+</section><!-- End Hero -->

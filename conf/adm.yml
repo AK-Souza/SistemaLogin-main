@@ -1,0 +1,6 @@
+Usuario(Adm):
+    nome: Administrador
+    email: adm@gmail.com
+    senha: 123
+    cargo: 1
+    

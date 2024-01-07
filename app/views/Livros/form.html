@@ -1,0 +1,47 @@
+#{extends 'resto.html' /}
+#{set title:'Formulário de livros' /}
+
+<div class="px-5 pt-4">
+    <h3>#{get 'title'/}</h3>
+</div>
+
+<form action ="@{Livros.salvar}" method="post" class="px-5 pt-4">
+    <input type ="hidden" name ="liv.id" value ="${liv?.id}">
+    
+    <div class="mb-3">
+        <label class="form-label" for="livnome">Nome</label>
+        <input class="form-control" name="liv.nome" value ="${liv?.nome}" id="livnome">
+        <span class ='vermelho'>#{error 'liv.nome' /}</span>
+    </div>
+	
+    <div class="mb-3">
+        <label class="form-label" for="livcodigo">Código</label>
+        <input class="form-control" name ="liv.codigo" value ="${liv?.codigo}" id="livcodigo">
+        <span class ='vermelho'>#{error 'liv.codigo' /}</span>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label" for="livpreco">Preço</label>
+        <input type="text" class="form-control" name="liv.preco" value="${liv?.preco}" id="livpreco">
+        <span class ='vermelho'>#{error 'liv.preco' /}</span>
+    </div>
+
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Descrição</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="liv.descricao">${liv?.descricao}</textarea>
+      </div>
+	    
+    <div class="mb-3">
+        <label class="form-label" for="livestante">Estante</label>
+        <select class="form-select form-select mb-3" name ="liv.estante.id" id="livestante">
+                <option value="-1" selected>Selecione a estante</option>
+                #{list items:estantes, as:'est'}
+                <option value ="${est?.id}" #{if liv?.estante?.id == est.id } selected #{/if} >${est.setor}${est.carreira} - ${est.categoria}</option>
+                #{/list}
+        </select>
+    </div>	
+	
+    <div class="mb-3">
+            <button class="btn btn-dark mt-4">salvar</button>
+    </div>
+</form>

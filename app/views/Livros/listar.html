@@ -1,0 +1,46 @@
+#{extends 'resto.html' /}
+#{set title:'Listagem de Livros' /}
+
+<div class="px-5 pt-4">
+	<h3>#{get 'title'/}</h3>
+	<form class="d-flex" role="search">
+		<input type="hidden" nome="id" value="${id}">
+		<input class="form-control me-2" type="search" placeholder="Pesquise Livros" aria-label="Search" name ="busca" value="${busca}">
+		<button class="btn btn-outline-dark" type="submit">Pesquisar</button>
+	  </form>
+</div>
+<div class="px-5 pt-4">
+
+
+	<table class="table table-striped">
+		
+		<thead>
+			<tr>
+			<th>#</th>
+			<th>Nome</th>
+			<th>Código</th>
+			<th>Preço</th> 
+			<th>Descrição</th>
+			<th>Estante</th>
+			</tr>
+		</thead>
+
+		<tbody>
+				#{list items:lista, as:'liv'}
+				<tr>
+					<th>${liv.id}</th>
+					<td>${liv.nome}</td>
+					<td>${liv.codigo}</td>
+					<td>${liv.preco}</td>
+					<td>${liv.descricao}</td>
+					<td>${liv.estante.setor}${liv.estante.carreira} - ${liv.estante.categoria}</td>
+					
+					<td>
+						<button type="button" class="btn btn-dark"><a class="text-white" href='@{Livros.editar(liv.id)}' >Editar</a></button> |
+						<button type="button" class="btn btn-dark"><a class="text-white" href='@{Livros.deletar(liv.id)}' >Deletar</a></button>	
+					</td>
+					#{/list}
+					</tr>
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,76 @@
+#{extends 'resto.html' /}
+#{set title:'Listagem de Usuários' /}
+
+<div class="px-5 pt-4">
+	<h3>#{get 'title'/}</h3>
+	<form class="d-flex" role="search">
+		<input class="form-control me-2" type="search" placeholder="Pesquise Usuario" aria-label="Search" name ="busca" value="${busca}">
+		<button class="btn btn-outline-dark" type="submit">Pesquisar</button>
+	  </form>
+</div>
+
+</br>
+
+<div class="px-5 pt-4">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+			<th>#</th>
+			<th>Nome</th>
+			<th>Email</th>
+			<th>Ações</th>
+			</tr>
+		</thead>
+
+		<tbody>
+		#{if session.get("usuario.cargo").equals("1")}
+			#{list items:usuarios, as:'u'}
+				<tr>
+					<th>${u.id}</th>
+					<td>${u.nome}</td>
+					<td>${u.email}</td>
+					
+					<td>
+						<a class="btn btn-dark" href='@{Usuarios.editar(u.id)}' >Editar</a> |
+						<a class="btn btn-danger" href='@{Usuarios.remover(u.id)}' >Deletar</a>		
+					</td>
+				</tr>
+			#{/list}
+		#{/if}
+		</tbody>
+	</table>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		$("form").submit(function (e) {
+			e.preventDefault();
+			$.ajax({
+				type: "GET", //INFORME O TIPO DA REQUISICAO
+				url: "@{Usuarios.listarAjax}", //INFORME A URL DE DESTINO
+				data: $(this).serialize(), //ENVIA DADOS DO FORMULARIO
+				success: function (data) {
+					$("tbody").empty();
+					if(data.length == 0){
+						$("tbody").append("<tr><td colspan='4'>Nenhum registro encontrado</td></tr>");
+						return;
+					}
+					 
+					$.each(data, function (i, item) {
+						$("tbody").append(
+							"<tr>" +
+							"<th>" + item.id + "</th>" +
+							"<td>" + item.nome + "</td>" +
+							"<td>" + item.email + "</td>" +
+							"<td>" +
+							"<a href='/usuarios/editar?id=" + item.id + "' class='btn btn-dark'>Editar</a> | "	+
+							"<a href='/usuarios/remover?id=" + item.id + "' class='btn btn-danger'>Deletar</a>"+ 
+							"</td>" +
+							"</tr>");
+					});
+				}
+			});
+		});
+	});
+</script>
+
